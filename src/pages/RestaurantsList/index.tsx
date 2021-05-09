@@ -1,10 +1,12 @@
 import React from 'react';
 import { SafeAreaView } from 'react-native';
-import Text from '../../components/atoms/Text';
+
+import { Loader, Text } from '../../components/atoms';
 
 const RestaurantsList: React.FC = () => (
   <SafeAreaView>
     <Text>Restaurants list</Text>
+    <Loader />
   </SafeAreaView>
 );
 
