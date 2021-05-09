@@ -1,0 +1,9 @@
+export const PRIMARY = '#ED1C24';
+export const DARK_DOWN = '#333333';
+export const DARK = '#666666';
+export const DARK_UP = '#808080';
+export const WHITE = '#ffffff';
+export const LIGHT_DOWN = '#aaaaaa';
+export const LIGHT = '#cccccc';
+export const LIGHT_MEDIUM = '#E6E6E6';
+export const LIGHT_UP = '#f2f2f2';
