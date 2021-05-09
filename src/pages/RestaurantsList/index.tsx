@@ -1,10 +1,11 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native';
+import Text from '../../components/atoms/Text';
 
 const RestaurantsList: React.FC = () => (
-  <View>
+  <SafeAreaView>
     <Text>Restaurants list</Text>
-  </View>
+  </SafeAreaView>
 );
 
 export default RestaurantsList;
