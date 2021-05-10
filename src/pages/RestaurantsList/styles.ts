@@ -30,4 +30,6 @@ export const styles = StyleSheet.create({
   searchbarSpacing: { marginBottom: 30 },
   restaurantsTitleSpacing: { marginBottom: 15 },
   thumbImageItem: { width: '100%' },
+  loadingContainer: { justifyContent: 'center', marginVertical: 20 },
+  loadingTextSpacing: { marginRight: 5 },
 });

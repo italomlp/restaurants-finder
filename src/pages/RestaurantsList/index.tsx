@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import { Text } from '../../components/atoms';
+import { Loader, Row, Text } from '../../components/atoms';
 import { Searchbar } from '../../components/molecules';
 import { RestaurantsThumbsList } from '../../components/organisms';
 
@@ -14,15 +14,27 @@ import {
   ListSearchContainer,
   HeaderImage,
 } from './styles';
+import { useInfinityFetch } from '../../hooks/useInfinityFetch';
+import Restaurant from '../../interfaces/Restaurant';
 
-const DATA = [...new Array(7)].map((_, i) => i);
+import { getData, getKey, RestaurantsListResponse } from './controller';
 
 const RestaurantsList: React.FC = () => {
   const { navigate } = useNavigation();
+  const { data, size, setSize, isReachEnd } = useInfinityFetch<
+    Restaurant[],
+    unknown,
+    RestaurantsListResponse
+  >(getKey, getData);
+
+  const normalizedData = useMemo(
+    () => data?.reduce<Restaurant[]>((acc, cur) => [...acc, ...cur], []) ?? [],
+    [data],
+  );
 
   return (
     <RestaurantsThumbsList
-      data={DATA}
+      data={normalizedData}
       headerComponent={
         <>
           <HeaderImage source={HeaderAsset} />
@@ -46,6 +58,20 @@ const RestaurantsList: React.FC = () => {
             </TouchableOpacity>
           </ListSearchContainer>
         </>
+      }
+      onEndReachedThreshold={0.05}
+      onEndReached={() => {
+        if (!isReachEnd) {
+          setSize(size + 1);
+        }
+      }}
+      ListFooterComponent={
+        !isReachEnd ? (
+          <Row style={styles.loadingContainer}>
+            <Text style={styles.loadingTextSpacing}>Carregando</Text>
+            <Loader />
+          </Row>
+        ) : undefined
       }
     />
   );
