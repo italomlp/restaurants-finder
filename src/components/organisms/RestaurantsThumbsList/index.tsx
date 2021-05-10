@@ -2,6 +2,7 @@ import React from 'react';
 import { FlatListProps } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { useNavigation } from '@react-navigation/native';
 import { Text } from '../../atoms';
 import { RestaurantThumb } from '../../molecules';
 
@@ -25,6 +26,7 @@ const RestaurantsThumbsList: React.FC<RestaurantsThumbsListProps> = ({
   ...props
 }) => {
   const { bottom } = useSafeAreaInsets();
+  const { navigate } = useNavigation();
 
   return (
     <ThumbsList
@@ -52,7 +54,7 @@ const RestaurantsThumbsList: React.FC<RestaurantsThumbsListProps> = ({
           lastRow={index >= data.length - 2}
         >
           <RestaurantThumb
-            onPress={() => console.tron.log('thumb pressed')}
+            onPress={() => navigate('RestaurantDetails', { id: item.id })}
             imageStyle={styles.thumbImageItem}
             source={{ uri: item.image }}
             title={item.name}
