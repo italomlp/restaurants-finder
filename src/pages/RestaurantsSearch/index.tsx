@@ -1,5 +1,5 @@
-import React from 'react';
-import { Image, TouchableOpacity, View } from 'react-native';
+import React, { useLayoutEffect, useRef } from 'react';
+import { Image, TextInput, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { Row, Text } from '../../components/atoms';
@@ -14,6 +14,11 @@ const DATA = [...new Array(7)].map((_, i) => i);
 
 const RestaurantsSearch: React.FC = () => {
   const { goBack } = useNavigation();
+  const searchRef = useRef<TextInput>(null);
+
+  useLayoutEffect(() => {
+    searchRef.current?.focus();
+  }, []);
 
   return (
     <RestaurantsThumbsList
@@ -39,6 +44,7 @@ const RestaurantsSearch: React.FC = () => {
             </View>
           </Row>
           <Searchbar
+            ref={searchRef}
             containerProps={{ style: styles.searchbarSpacing }}
             placeholder="Encontre um restaurante"
           />

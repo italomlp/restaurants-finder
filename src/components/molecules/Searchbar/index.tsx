@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImageProps, TextInputProps, ViewProps } from 'react-native';
+import { ImageProps, TextInput, TextInputProps, ViewProps } from 'react-native';
 
 import SearchImage from '../../../assets/icons/search_red.png';
 
@@ -13,15 +13,13 @@ type SearchbarProps = InputProps &
     iconProps?: Omit<ImageProps, 'source'>;
   };
 
-const Searchbar: React.FC<SearchbarProps> = ({
-  containerProps,
-  iconProps,
-  ...props
-}) => (
-  <Container {...containerProps}>
-    <SearchIcon source={SearchImage} {...iconProps} />
-    <Input {...props} />
-  </Container>
+const Searchbar = React.forwardRef<TextInput, SearchbarProps>(
+  ({ containerProps, iconProps, ...props }, ref) => (
+    <Container {...containerProps}>
+      <SearchIcon source={SearchImage} {...iconProps} />
+      <Input ref={ref} {...props} />
+    </Container>
+  ),
 );
 
 export default Searchbar;
