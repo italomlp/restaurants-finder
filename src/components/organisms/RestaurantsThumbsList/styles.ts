@@ -3,9 +3,7 @@ import { FlatList, FlatListProps, StyleSheet } from 'react-native';
 
 import { WHITE } from '../../../constants/colors';
 
-export const HeaderContainer = styled.SafeAreaView`
-  flex: 1;
-`;
+export const HeaderContainer = styled.SafeAreaView``;
 
 type ThumbContainerProps = {
   firstInRow: boolean;

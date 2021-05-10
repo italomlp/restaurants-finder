@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { FlatListProps } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Text } from '../../atoms';
@@ -12,21 +12,25 @@ import {
   ListSearchContainer,
   HeaderContainer,
 } from './styles';
+import Restaurant from '../../../interfaces/Restaurant';
 
-type RestaurantsThumbsListProps = {
+type RestaurantsThumbsListProps = Partial<FlatListProps<Restaurant>> & {
   headerComponent: React.ReactElement;
-  data: any[]; // TODO: do this typing
+  data: Restaurant[];
 };
 
 const RestaurantsThumbsList: React.FC<RestaurantsThumbsListProps> = ({
   headerComponent,
   data,
+  ...props
 }) => {
   const { bottom } = useSafeAreaInsets();
 
   return (
     <ThumbsList
+      {...props}
       data={data}
+      extraData={data}
       numColumns={2}
       ListHeaderComponent={
         <HeaderContainer>
@@ -41,7 +45,7 @@ const RestaurantsThumbsList: React.FC<RestaurantsThumbsListProps> = ({
       }
       contentContainerStyle={{ paddingBottom: 20 + bottom }}
       bounces={false}
-      keyExtractor={(item) => String(item)}
+      keyExtractor={(item) => item.id}
       renderItem={({ item, index }) => (
         <ThumbContainer
           firstInRow={!(index % 2)}
@@ -50,8 +54,8 @@ const RestaurantsThumbsList: React.FC<RestaurantsThumbsListProps> = ({
           <RestaurantThumb
             onPress={() => console.tron.log('thumb pressed')}
             imageStyle={styles.thumbImageItem}
-            source={{ uri: 'https://loremflickr.com/500/500/logo' }}
-            title={`Title ${item + 1}`}
+            source={{ uri: item.image }}
+            title={item.name}
           />
         </ThumbContainer>
       )}
