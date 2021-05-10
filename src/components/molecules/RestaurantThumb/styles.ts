@@ -7,7 +7,7 @@ export const ImageBackgroundThumb = styled.ImageBackground`
   overflow: hidden;
   position: relative;
   width: 148px;
-  height: 160px;
+  aspect-ratio: 0.925;
 `;
 
 export const Container = styled.View`
