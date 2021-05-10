@@ -1,5 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
 import { Text } from '../../components/atoms';
 import { Searchbar } from '../../components/molecules';
 import { RestaurantsThumbsList } from '../../components/organisms';
@@ -16,7 +18,7 @@ import {
 const DATA = [...new Array(7)].map((_, i) => i);
 
 const RestaurantsList: React.FC = () => {
-  const { bottom } = useSafeAreaInsets();
+  const { navigate } = useNavigation();
 
   return (
     <RestaurantsThumbsList
@@ -34,9 +36,7 @@ const RestaurantsList: React.FC = () => {
 
           <RadiusSpacing />
           <ListSearchContainer>
-            <TouchableOpacity
-              onPress={() => console.tron.log('go to search screen')}
-            >
+            <TouchableOpacity onPress={() => navigate('RestaurantsSearch')}>
               <View pointerEvents="none">
                 <Searchbar
                   placeholder="Encontre um restaurante"
