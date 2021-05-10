@@ -1,24 +1,53 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import { Image, TextInput, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import debounce from 'lodash/debounce';
 
-import { Row, Text } from '../../components/atoms';
+import { Loader, Row, Text } from '../../components/atoms';
 import { Searchbar } from '../../components/molecules';
 import { RestaurantsThumbsList } from '../../components/organisms';
 
 import BackIcon from '../../assets/icons/chevron_left_black.png';
 
-import { HeaderContainer, styles } from './styles';
+import { useFetch } from '../../hooks/useFetch';
+import Restaurant from '../../interfaces/Restaurant';
 
-const DATA = [...new Array(7)].map((_, i) => i);
+import { HeaderContainer, styles } from './styles';
+import { getData, RestaurantsListSearchResponse } from './controller';
 
 const RestaurantsSearch: React.FC = () => {
   const { goBack } = useNavigation();
   const searchRef = useRef<TextInput>(null);
+  const [loading, setLoading] = useState(true);
+  const [searchValue, setSearchValue] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const { data } = useFetch<
+    Restaurant[],
+    unknown,
+    RestaurantsListSearchResponse
+  >(`/restaurants?search=${searchQuery}`, getData);
 
   useLayoutEffect(() => {
     searchRef.current?.focus();
   }, []);
+
+  useEffect(() => {
+    setLoading(false);
+  }, [data]);
+
+  const debounceFilter = useCallback(
+    debounce((text) => {
+      setSearchQuery(text);
+    }, 1000),
+    [],
+  );
 
   return (
     <RestaurantsThumbsList
@@ -33,7 +62,7 @@ const RestaurantsSearch: React.FC = () => {
                 Resultados para
               </Text>
               <Text center type="h5">
-                Termo pesquisado
+                {searchValue || '-'}
               </Text>
             </View>
             <View
@@ -47,10 +76,23 @@ const RestaurantsSearch: React.FC = () => {
             ref={searchRef}
             containerProps={{ style: styles.searchbarSpacing }}
             placeholder="Encontre um restaurante"
+            value={searchValue}
+            onChangeText={(text) => {
+              setSearchValue(text);
+              setLoading(true);
+              debounceFilter(text);
+            }}
           />
+
+          {loading && (
+            <Row style={styles.loadingContainer}>
+              <Text style={styles.loadingText}>Carregando</Text>
+              <Loader />
+            </Row>
+          )}
         </HeaderContainer>
       }
-      data={DATA}
+      data={data || []}
     />
   );
 };

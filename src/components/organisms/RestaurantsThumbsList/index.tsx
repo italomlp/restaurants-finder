@@ -30,7 +30,6 @@ const RestaurantsThumbsList: React.FC<RestaurantsThumbsListProps> = ({
     <ThumbsList
       {...props}
       data={data}
-      extraData={data}
       numColumns={2}
       ListHeaderComponent={
         <HeaderContainer>
@@ -46,6 +45,7 @@ const RestaurantsThumbsList: React.FC<RestaurantsThumbsListProps> = ({
       contentContainerStyle={{ paddingBottom: 20 + bottom }}
       bounces={false}
       keyExtractor={(item) => item.id}
+      showsVerticalScrollIndicator={false}
       renderItem={({ item, index }) => (
         <ThumbContainer
           firstInRow={!(index % 2)}

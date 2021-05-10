@@ -35,7 +35,7 @@ export const ThumbsList = (styled(FlatList).attrs((props) => ({
 
 export const ListSearchContainer = styled.View`
   background-color: ${WHITE};
-  flex: 1;
+  flex-grow: 1;
   padding: 0 33px;
 `;
 
