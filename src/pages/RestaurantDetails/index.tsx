@@ -21,7 +21,7 @@ import {
   SectionDescription,
   Divider,
 } from './styles';
-import { RestaurantsShowResponse } from './controller';
+import { getData, RestaurantsShowResponse } from './controller';
 
 type RestaurantDetailsRoute = { id: string };
 type Routes = { RestaurantDetails: RestaurantDetailsRoute };
@@ -33,6 +33,7 @@ const RestaurantDetails: React.FC = () => {
   } = useRoute<RouteProp<Routes, 'RestaurantDetails'>>();
   const { data } = useFetch<Restaurant, unknown, RestaurantsShowResponse>(
     `/restaurants/${id}`,
+    getData,
   );
 
   if (!data) {
@@ -44,7 +45,11 @@ const RestaurantDetails: React.FC = () => {
       <CoverImage source={{ uri: data.image }} />
       <SafeAreaView>
         <HeaderContainer>
-          <TouchableOpacity onPress={goBack} hitSlop={styles.backHitSlop}>
+          <TouchableOpacity
+            style={styles.backButtonContainer}
+            onPress={goBack}
+            hitSlop={styles.backHitSlop}
+          >
             <Image source={BackIcon} />
           </TouchableOpacity>
           <LogoImage source={{ uri: data.logo }} />

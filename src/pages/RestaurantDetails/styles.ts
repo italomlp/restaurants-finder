@@ -68,4 +68,5 @@ export const styles = StyleSheet.create({
   backHitSlop: { top: 10, right: 10, bottom: 10, left: 10 },
   headerRightPlaceholder: { opacity: 0 },
   titleSpacing: { marginBottom: 30 },
+  backButtonContainer: { alignSelf: 'flex-start' },
 });
