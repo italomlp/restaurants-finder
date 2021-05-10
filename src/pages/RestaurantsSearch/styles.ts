@@ -13,6 +13,4 @@ export const styles = StyleSheet.create({
   headerRightSpacingPlaceholder: { opacity: 0 },
   backHitSlop: { top: 10, right: 10, bottom: 10, left: 10 },
   searchbarSpacing: { marginBottom: 30 },
-  loadingContainer: { marginBottom: 20, justifyContent: 'center' },
-  loadingText: { marginRight: 5 },
 });

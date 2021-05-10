@@ -9,8 +9,8 @@ import { Image, TextInput, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import debounce from 'lodash/debounce';
 
-import { Loader, Row, Text } from '../../components/atoms';
-import { Searchbar } from '../../components/molecules';
+import { Row, Text } from '../../components/atoms';
+import { LoadingIndicator, Searchbar } from '../../components/molecules';
 import { RestaurantsThumbsList } from '../../components/organisms';
 
 import BackIcon from '../../assets/icons/chevron_left_black.png';
@@ -84,12 +84,7 @@ const RestaurantsSearch: React.FC = () => {
             }}
           />
 
-          {loading && (
-            <Row style={styles.loadingContainer}>
-              <Text style={styles.loadingText}>Carregando</Text>
-              <Loader />
-            </Row>
-          )}
+          {loading && <LoadingIndicator />}
         </HeaderContainer>
       }
       data={data || []}

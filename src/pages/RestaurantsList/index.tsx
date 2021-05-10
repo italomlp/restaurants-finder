@@ -2,8 +2,8 @@ import React, { useMemo } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import { Loader, Row, Text } from '../../components/atoms';
-import { Searchbar } from '../../components/molecules';
+import { Text } from '../../components/atoms';
+import { LoadingIndicator, Searchbar } from '../../components/molecules';
 import { RestaurantsThumbsList } from '../../components/organisms';
 
 import HeaderAsset from '../../assets/images/header.png';
@@ -66,12 +66,7 @@ const RestaurantsList: React.FC = () => {
         }
       }}
       ListFooterComponent={
-        !isReachEnd ? (
-          <Row style={styles.loadingContainer}>
-            <Text style={styles.loadingTextSpacing}>Carregando</Text>
-            <Loader />
-          </Row>
-        ) : undefined
+        !isReachEnd ? <LoadingIndicator marginTop /> : undefined
       }
     />
   );
