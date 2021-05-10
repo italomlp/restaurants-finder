@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import { FlatList, FlatListProps, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import { WHITE } from '../../constants/colors';
 import { SCREEN_WIDTH } from '../../constants/screen';
@@ -11,44 +11,12 @@ export const HeaderImage = styled.Image.attrs({
   position: absolute;
 `;
 
-export const HeaderContainer = styled.SafeAreaView`
-  flex: 1;
-`;
-
 export const RadiusSpacing = styled.View`
   background-color: ${WHITE};
   border-top-left-radius: 32px;
   border-top-right-radius: 32px;
   height: 32px;
 `;
-
-type ThumbContainerProps = {
-  firstInRow: boolean;
-  lastRow: boolean;
-};
-
-export const ThumbContainer = styled.View<ThumbContainerProps>`
-  width: 50%;
-  padding-left: ${(props) => (props.firstInRow ? 33 : 10)}px;
-  padding-right: ${(props) => (!props.firstInRow ? 33 : 10)}px;
-  margin-bottom: ${(props) => (!props.lastRow ? 20 : 0)}px;
-`;
-
-type ThumbsListProps = FlatListProps<unknown> & {
-  bottomInset: number;
-};
-
-export const ThumbsList = (styled(FlatList).attrs((props) => ({
-  contentContainerStyle: [
-    {
-      flexGrow: 1,
-      backgroundColor: WHITE,
-    },
-    props.contentContainerStyle,
-  ],
-}))<ThumbsListProps>`
-  flex: 1;
-` as unknown) as typeof FlatList;
 
 export const ListSearchContainer = styled.View`
   background-color: ${WHITE};
